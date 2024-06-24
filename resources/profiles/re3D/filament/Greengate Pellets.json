@@ -1,0 +1,106 @@
+{
+    "additional_cooling_fan_speed": [
+        "100"
+    ],
+    "chamber_temperature": [
+        "300"
+    ],
+    "close_fan_the_first_x_layers": [
+        "0"
+    ],
+    "enable_overhang_bridge_fan": [
+        "0"
+    ],
+    "fan_cooling_layer_time": [
+        "60"
+    ],
+    "fan_max_speed": [
+        "100"
+    ],
+    "fan_min_speed": [
+        "100"
+    ],
+    "filament_cooling_final_speed": [
+        "0"
+    ],
+    "filament_cooling_initial_speed": [
+        "0"
+    ],
+    "filament_cooling_moves": [
+        "0"
+    ],
+    "filament_diameter": [
+        "2.87"
+    ],
+    "filament_flow_ratio": [
+        "1.01"
+    ],
+    "filament_loading_speed": [
+        "0"
+    ],
+    "filament_loading_speed_start": [
+        "0"
+    ],
+    "filament_max_volumetric_speed": [
+        "200"
+    ],
+    "filament_minimal_purge_on_wipe_tower": [
+        "0"
+    ],
+    "filament_settings_id": [
+        "Greengate Pellets"
+    ],
+    "filament_start_gcode": [
+        "; Filament gcode\nM190 S75\nM104 S220 T0\nM104 S210 T1\nM104 S200 T2\nM109 S220 T0\nM109 S210 T1\nM109 S200 T2\n\nG92 E0\nG1 E100 F600\nG92 E0"
+    ],
+    "filament_type": [
+        "PLA"
+    ],
+    "filament_unloading_speed": [
+        "0"
+    ],
+    "filament_unloading_speed_start": [
+        "0"
+    ],
+    "from": "User",
+    "hot_plate_temp": [
+        "75"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "75"
+    ],
+    "inherits": "My Generic PC",
+    "is_custom_defined": "0",
+    "name": "Greengate Pellets",
+    "nozzle_temperature": [
+        "220"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "220"
+    ],
+    "nozzle_temperature_range_low": [
+        "200"
+    ],
+    "overhang_fan_speed": [
+        "100"
+    ],
+    "overhang_fan_threshold": [
+        "0%"
+    ],
+    "pressure_advance": [
+        "0.4"
+    ],
+    "reduce_fan_stop_start_freq": [
+        "0"
+    ],
+    "slow_down_for_layer_cooling": [
+        "0"
+    ],
+    "slow_down_layer_time": [
+        "60"
+    ],
+    "support_material_interface_fan_speed": [
+        "0"
+    ],
+    "version": "2.0.2.0"
+}
