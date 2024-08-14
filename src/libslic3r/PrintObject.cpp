@@ -139,6 +139,9 @@ PrintBase::ApplyStatus PrintObject::set_instances(PrintInstances &&instances)
 std::vector<std::reference_wrapper<const PrintRegion>> PrintObject::all_regions() const
 {
     std::vector<std::reference_wrapper<const PrintRegion>> out;
+    if(!m_shared_regions)
+        return out;
+        
     out.reserve(m_shared_regions->all_regions.size());
     for (const std::unique_ptr<Slic3r::PrintRegion> &region : m_shared_regions->all_regions)
         out.emplace_back(*region.get());
@@ -957,7 +960,13 @@ bool PrintObject::invalidate_state_by_config_options(
             || opt_key == "slowdown_for_curled_perimeters"
             || opt_key == "make_overhang_printable"
             || opt_key == "make_overhang_printable_angle"
-            || opt_key == "make_overhang_printable_hole_size") {
+            || opt_key == "make_overhang_printable_hole_size"
+            || opt_key == "interlocking_beam"
+            || opt_key == "interlocking_orientation"
+            || opt_key == "interlocking_beam_layer_count"
+            || opt_key == "interlocking_depth"
+            || opt_key == "interlocking_boundary_avoidance"
+            || opt_key == "interlocking_beam_width") {
             steps.emplace_back(posSlice);
 		} else if (
                opt_key == "elefant_foot_compensation"
@@ -2884,9 +2893,9 @@ static void apply_to_print_region_config(PrintRegionConfig &out, const DynamicPr
     if (opt_extruder)
         if (int extruder = opt_extruder->value; extruder != 0) {
             // Not a default extruder.
-            out.sparse_infill_filament      .value = extruder;
-            out.solid_infill_filament.value = extruder;
-            out.wall_filament   .value = extruder;
+            out.sparse_infill_filament.value = extruder;
+            out.solid_infill_filament.value  = extruder;
+            out.wall_filament.value          = extruder;
         }
     // 2) Copy the rest of the values.
     for (auto it = in.cbegin(); it != in.cend(); ++ it)
@@ -3005,10 +3014,11 @@ std::vector<unsigned int> PrintObject::object_extruders() const
 {
     std::vector<unsigned int> extruders;
     extruders.reserve(this->all_regions().size() * 3);
-#if 0
+
+    //Orca: Collect extruders from all regions.
     for (const PrintRegion &region : this->all_regions())
         region.collect_object_printing_extruders(*this->print(), extruders);
-#else
+
     const ModelObject* mo = this->model_object();
     for (const ModelVolume* mv : mo->volumes) {
         std::vector<int> volume_extruders = mv->get_extruders();
@@ -3017,7 +3027,6 @@ std::vector<unsigned int> PrintObject::object_extruders() const
             extruders.push_back(extruder - 1);
         }
     }
-#endif
     sort_remove_duplicates(extruders);
     return extruders;
 }
