@@ -817,12 +817,22 @@ void PrintConfigDef::init_fff_params()
     def = this->add("gap_fill_target", coEnum);
     def->label = L("Apply gap fill");
     def->category = L("Strength");
-    def->tooltip = L("Enables gap fill for the selected surfaces. The minimum gap length that will be filled can be controlled "
+    def->tooltip = L("Enables gap fill for the selected solid surfaces. The minimum gap length that will be filled can be controlled "
                      "from the filter out tiny gaps option below.\n\n"
                      "Options:\n"
-                     "1. Everywhere: Applies gap fill to top, bottom and internal solid surfaces\n"
-                     "2. Top and Bottom surfaces: Applies gap fill to top and bottom surfaces only\n"
-                     "3. Nowhere: Disables gap fill\n");
+                     "1. Everywhere: Applies gap fill to top, bottom and internal solid surfaces for maximum strength\n"
+                     "2. Top and Bottom surfaces: Applies gap fill to top and bottom surfaces only, balancing print speed, "
+                     "reducing potential over extrusion in the solid infill and making sure the top and bottom surfaces have "
+                     "no pin hole gaps\n"
+                     "3. Nowhere: Disables gap fill for all solid infill areas. \n\n"
+                     "Note that if using the classic perimeter generator, gap fill may also be generated between perimeters, "
+                     "if a full width line cannot fit between them. That perimeter gap fill is not controlled by this setting. \n\n"
+                     "If you would like all gap fill, including the classic perimeter generated one, removed, "
+                     "set the filter out tiny gaps value to a large number, like 999999. \n\n"
+                     "However this is not advised, as gap fill between perimeters is contributing to the model's strength. "
+                     "For models where excessive gap fill is generated between perimeters, a better option would be to "
+                     "switch to the arachne wall generator and use this option to control whether the cosmetic top and "
+                     "bottom surface gap fill is generated");
     def->enum_keys_map = &ConfigOptionEnum<GapFillTarget>::get_enum_values();
     def->enum_values.push_back("everywhere");
     def->enum_values.push_back("topbottom");
@@ -1042,7 +1052,16 @@ void PrintConfigDef::init_fff_params()
     def = this->add("slowdown_for_curled_perimeters", coBool);
     def->label = L("Slow down for curled perimeters");
     def->category = L("Speed");
-    def->tooltip = L("Enable this option to slow printing down in areas where potential curled perimeters may exist");
+    def->tooltip = L("Enable this option to slow down printing in areas where perimeters may have curled upwards."
+                     "For example, additional slowdown will be applied when printing overhangs on sharp corners like the "
+                     "front of the Benchy hull, reducing curling which compounds over multiple layers.\n\n "
+                     "It is generally recommended to have this option switched on unless your printer cooling is powerful enough or the "
+                     "print speed slow enough that perimeter curling does not happen. If printing with a high external perimeter speed, "
+                     "this parameter may introduce slight artifacts when slowing down due to the large variance in print speeds. "
+                     "If you notice artifacts, ensure your pressure advance is tuned correctly.\n\n"
+                     "Note: When this option is enabled, overhang perimeters are treated like overhangs, meaning the overhang speed is "
+                     "applied even if the overhanging perimeter is part of a bridge. For example, when the perimeters are 100% overhanging"
+                     ", with no wall supporting them from underneath, the 100% overhang speed will be applied.");
     def->mode = comAdvanced;
     def->set_default_value(new ConfigOptionBool{ false });
 
@@ -1095,7 +1114,10 @@ void PrintConfigDef::init_fff_params()
     def = this->add("bridge_speed", coFloat);
     def->label = L("External");
     def->category = L("Speed");
-    def->tooltip = L("Speed of bridge and completely overhang wall");
+    def->tooltip = L("Speed of the externally visible bridge extrusions. "
+                     "\n\nIn addition, if Slow down for curled perimeters is disabled or Classic overhang mode is enabled, "
+                     "it will be the print speed of overhang walls that are supported by less than 13%, whether they are part of a bridge "
+                     "or an overhang.");
     def->sidetext = L("mm/s");
     def->min = 1;
     def->mode = comAdvanced;
@@ -1104,7 +1126,7 @@ void PrintConfigDef::init_fff_params()
     def = this->add("internal_bridge_speed", coFloatOrPercent);
     def->label = L("Internal");
     def->category = L("Speed");
-    def->tooltip = L("Speed of internal bridge. If the value is expressed as a percentage, it will be calculated based on the bridge_speed. Default value is 150%.");
+    def->tooltip = L("Speed of internal bridges. If the value is expressed as a percentage, it will be calculated based on the bridge_speed. Default value is 150%.");
     def->sidetext = L("mm/s or %");
     def->ratio_over = "bridge_speed";
     def->min = 1;
@@ -2539,7 +2561,8 @@ void PrintConfigDef::init_fff_params()
     def = this->add("filter_out_gap_fill", coFloat);
     def->label = L("Filter out tiny gaps");
     def->category = L("Layers and Perimeters");
-    def->tooltip = L("Filter out gaps smaller than the threshold specified");
+    def->tooltip = L("Don't print gap fill with a length is smaller than the threshold specified (in mm). This setting applies to top, "
+                     "bottom and solid infill and, if using the classic perimeter generator, to wall gap fill. ");
     def->sidetext = L("mm");
     def->mode = comAdvanced;
     def->set_default_value(new ConfigOptionFloat(0));
@@ -5329,11 +5352,11 @@ void PrintConfigDef::init_extruder_option_keys()
         "retraction_length",
         "retraction_minimum_travel",
         "retraction_speed",
+        "travel_slope",
         "wipe",
         "wipe_distance",
         "z_hop",
-        "z_hop_types",
-        "travel_slope"
+        "z_hop_types"
     };
     assert(std::is_sorted(m_extruder_retract_keys.begin(), m_extruder_retract_keys.end()));
 }
