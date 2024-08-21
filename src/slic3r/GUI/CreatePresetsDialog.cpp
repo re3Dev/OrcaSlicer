@@ -71,7 +71,7 @@ static const std::vector<std::string> printer_vendors =
      "Orca Arena Printer", "Peopoly",            "Prusa",              "Qidi",               "Raise3D",
      "RatRig",             "SecKit",             "Snapmaker",          "Sovol",              "Tronxy",
      "TwoTrees",           "UltiMaker",          "Vivedino",           "Voron",              "Voxelab",
-     "Vzbot",              "Wanhao"};
+     "Vzbot",              "Wanhao",             "re3D"};
 
 static const std::unordered_map<std::string, std::vector<std::string>> printer_model_map =
     {{"Anker",          {"Anker M5", "Anker M5 All-Metal Hot End", "Anker M5C"}},
