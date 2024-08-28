@@ -1,5 +1,5 @@
 {
-    "name": "re3D",
+    "name": "Re3D",
     "version": "02.01.01.00",
     "force_update": "0",
     "description": "re3D configurations",
@@ -7,7 +7,11 @@
 		{
             "name": "re3D Gigabot 4",
             "sub_path": "machine/re3D Gigabot 4.json"
-		}
+		},
+        {
+            "name": "re3D Terabot",
+            "sub_path": "machine/re3D Terabot 4.json"
+        }
     ],
     "process_list": [
         {
@@ -77,6 +81,11 @@
 		{
             "name": "re3D Gigabot 4 0.4 nozzle",
             "sub_path": "machine/re3D Gigabot 4 0.4 nozzle.json"
+        },
+        {
+            "name": "re3D Terabot 0.4 nozzle",
+            "sub_path": "machine/re3D Terabot 4 0.4 nozzle.json"
         }
+
     ]
 }
