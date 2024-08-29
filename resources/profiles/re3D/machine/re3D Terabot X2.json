@@ -2,7 +2,7 @@
     "type": "machine_model",
     "name": "re3D Terabot X2",
     "model_id": "TBX2",
-    "nozzle_diameter": "0.4",
+    "nozzle_diameter": "0.8;1.75",
     "machine_tech": "FFF",
     "family": "re3D",
     "bed_model": "",
