@@ -16,6 +16,17 @@
         "8"
     ],
     "compatible_printers": [
-	  "re3D Gigabot 4 0.4 nozzle"
-    ]
+        "re3D Gigabot 4 0.4 nozzle",
+        "re3D Gigabot 4 0.8 nozzle",
+        "re3D Gigabot 4 XLT 0.4 nozzle",
+        "re3D Gigabot 4 XLT 0.8 nozzle",
+        "re3D Terabot 4 0.4 nozzle",
+        "re3D Terabot 4 0.8 nozzle",
+        "re3D Gigabot X2 0.8 nozzle",
+        "re3D Gigabot X2 1.75 nozzle",
+        "re3D Gigabot X2 XLT 0.8 nozzle",
+        "re3D Gigabot X2 XLT 1.75 nozzle",
+        "re3D Terabot X2 0.8 nozzle",
+        "re3D Terabot X2 1.75 nozzle"
+      ]
 }
