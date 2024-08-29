@@ -105,6 +105,7 @@ static const std::unordered_map<std::string, std::vector<std::string>> printer_m
      {"Papapiu",        {"N1s"}},
      {"Print4Taste",    {"mycusini 2.0"}},
      {"RatRig",         {"V-core-3 300mm",  "V-Core-3 400mm",   "V-Core-3 500mm", "V-Minion"}},
+     {"re3D",           {"Gigabot 4",   "Gigabot 4 XLT",    "Terabot 4",    "Gigabot X2",   "Gigabot X2 XLT",   "Terabot X2 XLT"}},
      {"Rigid3D",        {"Zero2",           "Zero3"}},
      {"Snapmaker",      {"A250",            "A350"}},
      {"Sovol",          {"SV06",            "SV06 PLUS",        "SV05",             "SV04",             "SV03 / SV03 BLTOUCH",      "SVO2 / SV02 BLTOUCH",      "SVO1 / SV01 BLToUCH", "SV01 PRO"}},
@@ -116,10 +117,11 @@ static const std::unordered_map<std::string, std::vector<std::string>> printer_m
                         "Zero 120mm3",      "Switchwire"}},
      {"Zonestar",       {"Z5",              "Z6",               "Z5x",              "Z8",               "Z9"}}};
 
-static std::vector<std::string>               nozzle_diameter_vec = {"0.4", "0.15", "0.2", "0.25", "0.3", "0.35", "0.5", "0.6", "0.75", "0.8", "1.0", "1.2"};
+static std::vector<std::string>               nozzle_diameter_vec = {"0.4", "0.15", "0.2", "0.25", "0.3", "0.35", "0.5", "0.6", "0.75", "0.8", "1.0", "1.2", "1.75"};
 static std::unordered_map<std::string, float> nozzle_diameter_map = {{"0.15", 0.15}, {"0.2", 0.2},   {"0.25", 0.25}, {"0.3", 0.3},
                                                                      {"0.35", 0.35}, {"0.4", 0.4},   {"0.5", 0.5},   {"0.6", 0.6},
-                                                                     {"0.75", 0.75}, {"0.8", 0.8},   {"1.0", 1.0},   {"1.2", 1.2}};
+                                                                     {"0.75", 0.75}, {"0.8", 0.8},   {"1.0", 1.0},   {"1.2", 1.2},
+                                                                     {"1.75", 1.75}};
 
 static std::set<int> cannot_input_key = {9, 10, 13, 33, 35, 36, 37, 38, 40, 41, 42, 44, 46, 47, 59, 60, 62, 63, 64, 92, 94, 95, 124, 126};
 
