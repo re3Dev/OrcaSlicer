@@ -35,24 +35,48 @@
             "sub_path": "process/fdm_process_common.json"
         },
         {
-            "name": "fdm_process_re3D_common",
-            "sub_path": "process/fdm_process_re3D_common.json"
+            "name": "fdm_process_re3D_0.4_common",
+            "sub_path": "process/fdm_process_re3D_0.4_common.json"
         },
         {
-            "name": "0.12mm Fine @re3D Gigabot 4",
-            "sub_path": "process/0.12mm Fine @re3D Gigabot 4.json"
+            "name": "fdm_process_re3D_0.8_common",
+            "sub_path": "process/fdm_process_re3D_0.8_common.json"
         },
         {
-            "name": "0.15mm Optimal @re3D Gigabot 4",
-            "sub_path": "process/0.15mm Optimal @re3D Gigabot 4.json"
+            "name": "fgf_process_re3D_0.8_common",
+            "sub_path": "process/fgf_process_re3D_0.8_common.json"
         },
         {
-            "name": "0.20mm Standard @re3D Gigabot 4",
-            "sub_path": "process/0.20mm Standard @re3D Gigabot 4.json"
+            "name": "fgf_process_re3D_1.2_common",
+            "sub_path": "process/fgf_process_re3D_1.2_common.json"
         },
         {
-            "name": "0.24mm Draft @re3D Gigabot 4",
-            "sub_path": "process/0.24mm Draft @re3D Gigabot 4.json"
+            "name": "fgf_process_re3D_common",
+            "sub_path": "process/fgf_process_re3D_common.json"
+        },
+        {
+            "name": "0.2mm Fine @re3D fdm 0.4",
+            "sub_path": "process/0.2mm Fine @re3D fdm 0.4.json"
+        },
+        {
+            "name": "0.28mm Standard @re3D fdm 0.4",
+            "sub_path": "process/0.28mm Standard @re3D fdm 0.4.json"
+        },
+        {
+            "name": "0.32mm Draft @re3D fdm 0.4",
+            "sub_path": "process/0.32mm Draft @re3D fdm 0.4.json"
+        },
+        {
+            "name": "0.2mm Fine @re3D fdm 0.8",
+            "sub_path": "process/0.2mm Fine @re3D fdm 0.8.json"
+        },
+        {
+            "name": "0.28mm Standard @re3D fdm 0.8",
+            "sub_path": "process/0.28mm Standard @re3D fdm 0.8.json"
+        },
+        {
+            "name": "0.32mm Draft @re3D fdm 0.8",
+            "sub_path": "process/0.32mm Draft @re3D fdm 0.8.json"
         }
     ],
     "filament_list": [
