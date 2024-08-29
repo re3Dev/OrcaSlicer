@@ -9,8 +9,24 @@
             "sub_path": "machine/re3D Gigabot 4.json"
 		},
         {
+            "name": "re3D Gigabot 4 XLT",
+            "sub_path": "machine/re3D Gigabot 4 XLT.json"
+        },
+        {
             "name": "re3D Terabot",
             "sub_path": "machine/re3D Terabot 4.json"
+        },
+        {
+            "name": "re3D Gigabot X2",
+            "sub_path": "machine/re3D Gigabot X2.json"
+        },
+        {
+            "name": "re3D Gigabot X2 XLT",
+            "sub_path": "machine/re3D Gigabot X2 XLT.json"
+        },
+        {
+            "name": "re3D Terabot X2",
+            "sub_path": "re3D Terabot X2.json"
         }
     ],
     "process_list": [
@@ -83,9 +99,52 @@
             "sub_path": "machine/re3D Gigabot 4 0.4 nozzle.json"
         },
         {
+            "name": "re3D Gigabot 4 0.8 nozzle",
+            "sub_path": "machine/re3D Gigabot 4 0.8 nozzle.json"
+        },
+        {
+            "name": "re3D Gigabot 4 XLT 0.4 nozzle",
+            "sub_path": "re3D Gigabot 4 XLT 0.4 nozzle.json"
+        },
+        {
+            "name": "re3D Gigabot 4 XLT 0.8 nozzle",
+            "sub_path": "re3D Gigabot 4 XLT 0.8 nozzle.json"
+        },        
+        {
             "name": "re3D Terabot 0.4 nozzle",
             "sub_path": "machine/re3D Terabot 4 0.4 nozzle.json"
+        },
+        {
+            "name": "re3D Terabot 0.8 nozzle",
+            "sub_path": "machine/re3D Terabot 4 0.8 nozzle.json"
+        },
+        {
+            "name": "re3D Gigabot X2 0.8 nozzle",
+            "sub_path": "re3D Gigabot X2 0.8 nozzle.json"
+        },
+        {
+            "name": "re3D Gigabot X2 1.75 nozzle",
+            "sub_path": "re3D Gigabot X2 1.75 nozzle.json"
+        },
+        {
+            "name": "re3D Gigabot X2 XLT 0.8 nozzle",
+            "sub_path": "re3D Gigabot X2 XLT 0.8 nozzle.json"
+        },
+        {
+            "name": "re3D Gigabot X2 XLT 1.75 nozzle",
+            "sub_path": "re3D Gigabot X2 XLT 1.75 nozzle.json"
+        },
+        {
+            "name": "re3D Terabot X2 0.8 nozzle",
+            "sub_path": "re3D Terabot X2 0.8 nozzle.json"
+        },
+        {
+            "name": "re3D Terabot X2 1.75 nozzle",
+            "sub_path": "re3D Terabot X2 1.75 nozzle.json"
         }
-
+        
     ]
 }
+
+
+
