@@ -105,6 +105,7 @@ static const std::unordered_map<std::string, std::vector<std::string>> printer_m
      {"Papapiu",        {"N1s"}},
      {"Print4Taste",    {"mycusini 2.0"}},
      {"RatRig",         {"V-core-3 300mm",  "V-Core-3 400mm",   "V-Core-3 500mm", "V-Minion"}},
+     {"re3D",           {"GB4",     "GB4XLT",    "TB4",     "GBX2",     "GBX2XLT",      "TBX2"}},
      {"Rigid3D",        {"Zero2",           "Zero3"}},
      {"Snapmaker",      {"A250",            "A350"}},
      {"Sovol",          {"SV06",            "SV06 PLUS",        "SV05",             "SV04",             "SV03 / SV03 BLTOUCH",      "SVO2 / SV02 BLTOUCH",      "SVO1 / SV01 BLToUCH", "SV01 PRO"}},
