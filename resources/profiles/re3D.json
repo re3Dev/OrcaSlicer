@@ -1,5 +1,5 @@
 {
-    "name": "Re3D",
+    "name": "re3D",
     "version": "02.01.01.00",
     "force_update": "0",
     "description": "re3D configurations",
@@ -49,10 +49,6 @@
         {
             "name": "fgf_process_re3D_1.75_common",
             "sub_path": "process/fgf_process_re3D_1.75_common.json"
-        },
-        {
-            "name": "fgf_process_re3D_common",
-            "sub_path": "process/fgf_process_re3D_common.json"
         },
         {
             "name": "0.2mm Fine @re3D fdm 0.4",
