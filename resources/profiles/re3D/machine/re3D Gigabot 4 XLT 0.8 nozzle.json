@@ -1,7 +1,7 @@
 {
     "type": "machine",
     "setting_id": "GM001",
-    "name": "re3D Gigabot 4 XLT 0.4 nozzle",
+    "name": "re3D Gigabot 4 XLT 0.8 nozzle",
     "from": "system",
     "instantiation": "true",
     "inherits": "fdm_re3D_common",
