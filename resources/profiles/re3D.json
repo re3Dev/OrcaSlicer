@@ -155,11 +155,11 @@
             "sub_path": "machine/re3D Gigabot 4 XLT 0.8 nozzle.json"
         },        
         {
-            "name": "re3D Terabot 0.4 nozzle",
+            "name": "re3D Terabot 4 0.4 nozzle",
             "sub_path": "machine/re3D Terabot 4 0.4 nozzle.json"
         },
         {
-            "name": "re3D Terabot 0.8 nozzle",
+            "name": "re3D Terabot 4 0.8 nozzle",
             "sub_path": "machine/re3D Terabot 4 0.8 nozzle.json"
         },
         {
