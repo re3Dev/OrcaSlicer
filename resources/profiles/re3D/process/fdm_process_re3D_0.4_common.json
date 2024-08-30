@@ -102,6 +102,8 @@
     "xy_hole_compensation": "0",
     "xy_contour_compensation": "0",
     "compatible_printers": [
-	  "re3D Gigabot 4 0.4 nozzle"
+	  "re3D Gigabot 4 0.4 nozzle",
+      "re3D Gigabot 4 XLT 0.4 nozzle",
+      "re3D Terabot 4 0.4 nozzle"
     ]
 }
