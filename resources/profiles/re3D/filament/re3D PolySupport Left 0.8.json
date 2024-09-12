@@ -1,0 +1,14 @@
+{
+    "type": "filament",
+	"filament_id": "GFS99",
+    "setting_id": "GFSP99",
+    "name": "re3D PolySupport Left 0.8",
+    "from": "system",
+    "instantiation": "true",
+    "inherits": "fdm_filament_pla",
+    "compatible_printers": [
+        "re3D Gigabot 4 0.8 nozzle",
+        "re3D Gigabot 4 XLT 0.8 nozzle",
+        "re3D Terabot 4 0.8 nozzle"
+      ]
+}

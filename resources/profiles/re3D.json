@@ -113,20 +113,12 @@
             "sub_path": "filament/fdm_filament_pla.json"
         },
         {
-            "name": "fdm_filament_tpu",
-            "sub_path": "filament/fdm_filament_tpu.json"
+            "name": "fdm_filament_pc",
+            "sub_path": "filament/fdm_filament_pc.json"
         },
         {
-            "name": "re3D Generic PETG",
-            "sub_path": "filament/re3D Generic PETG.json"
-        },
-        {
-            "name": "re3D Generic PLA",
-            "sub_path": "filament/re3D Generic PLA.json"
-        },
-        {
-            "name": "re3D Generic TPU",
-            "sub_path": "filament/re3D Generic TPU.json"
+            "name": "fdm_filament_abs",
+            "sub_path": "filament/fdm_filament_abs.json"
         },
         {
             "name": "re3D Greengate rPETG",
