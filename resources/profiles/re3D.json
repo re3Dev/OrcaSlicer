@@ -122,87 +122,87 @@
         },
         {
             "name": "re3D Greengate rPETG",
-            "sub_path": "re3D Greengate rPETG.json"
+            "sub_path": "filament/re3D Greengate rPETG.json"
         },
         {
             "name": "re3D ABS Left 0.4",
-            "sub_path": "re3D ABS Left 0.4.json"
+            "sub_path": "filament/re3D ABS Left 0.4.json"
         },
         {
             "name": "re3D ABS Right 0.4",
-            "sub_path": "re3D ABS Right 0.4.json"
+            "sub_path": "filament/re3D ABS Right 0.4.json"
         },
         {
             "name": "re3D ABS Left 0.8",
-            "sub_path": "re3D ABS Left 0.8.json"
+            "sub_path": "filament/re3D ABS Left 0.8.json"
         },
         {
             "name": "re3D ABS Right 0.8",
-            "sub_path": "re3D ABS Right 0.8.json"
+            "sub_path": "filament/re3D ABS Right 0.8.json"
         },
         {
             "name": "re3D PC Left 0.4",
-            "sub_path": "re3D PC Left 0.4.json"
+            "sub_path": "filament/re3D PC Left 0.4.json"
         },
         {
             "name": "re3D PC Right 0.4",
-            "sub_path": "re3D PC Right 0.4.json"
+            "sub_path": "filament/re3D PC Right 0.4.json"
         },
         {
             "name": "re3D PC Left 0.8",
-            "sub_path": "re3D PC Left 0.8.json"
+            "sub_path": "filament/re3D PC Left 0.8.json"
         },
         {
             "name": "re3D PC Right 0.8",
-            "sub_path": "re3D PC Right 0.8.json"
+            "sub_path": "filament/re3D PC Right 0.8.json"
         },
         {
             "name": "re3D PETG Left 0.4",
-            "sub_path": "re3D PETG Left 0.4.json"
+            "sub_path": "filament/re3D PETG Left 0.4.json"
         },
         {
             "name": "re3D PETG Right 0.4",
-            "sub_path": "re3D PETG Right 0.4.json"
+            "sub_path": "filament/re3D PETG Right 0.4.json"
         },
         {
             "name": "re3D PETG Left 0.8",
-            "sub_path": "re3D PETG Left 0.8.json"
+            "sub_path": "filament/re3D PETG Left 0.8.json"
         },
         {
             "name": "re3D PETG Right 0.8",
-            "sub_path": "re3D PETG Right 0.8.json"
+            "sub_path": "filament/re3D PETG Right 0.8.json"
         },
         {
             "name": "re3D PLA Left 0.4",
-            "sub_path": "re3D PLA Left 0.4.json"
+            "sub_path": "filament/re3D PLA Left 0.4.json"
         },
         {
             "name": "re3D PLA Right 0.4",
-            "sub_path": "re3D PLA Right 0.4.json"
+            "sub_path": "filament/re3D PLA Right 0.4.json"
         },
         {
             "name": "re3D PLA Left 0.8",
-            "sub_path": "re3D PLA Left 0.8.json"
+            "sub_path": "filament/re3D PLA Left 0.8.json"
         },
         {
             "name": "re3D PLA Right 0.8",
-            "sub_path": "re3D PLA Right 0.8.json"
+            "sub_path": "filament/re3D PLA Right 0.8.json"
         },
         {
             "name": "re3D PolySupport Left 0.4",
-            "sub_path": "re3D PolySupport Left 0.4.json"
+            "sub_path": "filament/re3D PolySupport Left 0.4.json"
         },
         {
             "name": "re3D PolySupport Right 0.4",
-            "sub_path": "re3D PolySupport Right 0.4.json"
+            "sub_path": "filament/re3D PolySupport Right 0.4.json"
         },
         {
             "name": "re3D PolySupport Left 0.8",
-            "sub_path": "re3D PolySupport Left 0.8.json"
+            "sub_path": "filament/re3D PolySupport Left 0.8.json"
         },
         {
             "name": "re3D PolySupport Right 0.8",
-            "sub_path": "re3D PolySupport Right 0.8.json"
+            "sub_path": "filament/re3D PolySupport Right 0.8.json"
         }
     ],
     "machine_list": [
