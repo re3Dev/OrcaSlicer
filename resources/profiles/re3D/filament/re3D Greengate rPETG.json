@@ -10,11 +10,8 @@
         "; filament start gcode\n"
     ],
     "compatible_printers": [
-      "re3D Gigabot X2 0.8 nozzle",
       "re3D Gigabot X2 1.75 nozzle",
-      "re3D Gigabot X2 XLT 0.8 nozzle",
       "re3D Gigabot X2 XLT 1.75 nozzle",
-      "re3D Terabot X2 0.8 nozzle",
       "re3D Terabot X2 1.75 nozzle"
     ]
 }

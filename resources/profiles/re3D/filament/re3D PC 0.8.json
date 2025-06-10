@@ -2,10 +2,10 @@
     "type": "filament",
 	"filament_id": "GFG99",
     "setting_id": "GFSG99",
-    "name": "re3D PETG Right 0.8",
+    "name": "re3D PC 0.8",
     "from": "system",
     "instantiation": "true",
-    "inherits": "fdm_filament_pet",
+    "inherits": "fdm_filament_pc",
     "filament_start_gcode": [
         "; filament start gcode\n"
     ],
