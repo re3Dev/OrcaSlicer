@@ -5104,6 +5104,21 @@ void TabPrinter::on_preset_loaded()
     if (m_extruders_count != extruders_count)
         extruders_count_changed(extruders_count);
 
+    // Ensure filament count matches extruder count
+    // even when the extruder count didn't change (e.g. switching between two dual-extruder
+    // printers where update_selections() may have reset filament_presets to 1).
+    if (!m_config->opt_bool("single_extruder_multi_material") && extruders_count > 1 &&
+        m_preset_bundle->filament_presets.size() < extruders_count) {
+        std::vector<std::string> new_colors;
+        for (size_t i = m_preset_bundle->filament_presets.size(); i < extruders_count; ++i) {
+            wxColour new_col = Plater::get_next_color_for_filament();
+            new_colors.push_back(new_col.GetAsString(wxC2S_HTML_SYNTAX).ToStdString());
+        }
+        m_preset_bundle->set_num_filaments(extruders_count, new_colors);
+        wxGetApp().plater()->on_filament_count_change(extruders_count);
+        wxGetApp().preset_bundle->export_selections(*wxGetApp().app_config);
+    }
+
     m_extruder_variant_list = m_config->option<ConfigOptionStrings>("printer_extruder_variant")->values;
 
     if (base_name != m_base_preset_name) {
@@ -5939,6 +5954,27 @@ bool Tab::select_preset(
         // Orca: update presets for the selected printer
         if (m_type == Preset::TYPE_PRINTER && wxGetApp().app_config->get_bool("remember_printer_config")) {
             m_preset_bundle->update_selections(*wxGetApp().app_config);
+
+            // For non-SEMM multi-extruder printers (e.g. dual hotend), ensure filament count
+            // matches the extruder count. update_selections() loads saved filament presets from
+            // app config, but if none were saved yet the count stays at 1 even though the printer
+            // has 2+ nozzles.
+            auto &printer_cfg = m_preset_bundle->printers.get_edited_preset().config;
+            if (!printer_cfg.opt_bool("single_extruder_multi_material")) {
+                auto *nozzle_dia = dynamic_cast<const ConfigOptionFloats *>(printer_cfg.option("nozzle_diameter"));
+                if (nozzle_dia) {
+                    size_t num_extruders = nozzle_dia->values.size();
+                    if (m_preset_bundle->filament_presets.size() < num_extruders) {
+                        std::vector<std::string> new_colors;
+                        for (size_t i = m_preset_bundle->filament_presets.size(); i < num_extruders; ++i) {
+                            wxColour new_col = Plater::get_next_color_for_filament();
+                            new_colors.push_back(new_col.GetAsString(wxC2S_HTML_SYNTAX).ToStdString());
+                        }
+                        m_preset_bundle->set_num_filaments(num_extruders, new_colors);
+                    }
+                }
+            }
+
             wxGetApp().plater()->sidebar().on_filament_count_change(m_preset_bundle->filament_presets.size());
         }
         load_current_preset();
