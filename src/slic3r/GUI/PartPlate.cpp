@@ -777,139 +777,107 @@ void PartPlate::render_logo(bool bottom, bool render_cali)
 {
 	if (!m_partplate_list->render_bedtype_logo) {
 		// render third-party printer texture logo
-		if (m_partplate_list->m_logo_texture_filename.empty()) {
-			m_partplate_list->m_logo_texture.reset();
-			return;
-		}
+		if (!m_partplate_list->m_logo_texture_filename.empty()) {
+			//GLTexture* temp_texture = const_cast<GLTexture*>(&m_temp_texture);
 
-		//GLTexture* temp_texture = const_cast<GLTexture*>(&m_temp_texture);
+			if (m_partplate_list->m_logo_texture.get_id() == 0 || m_partplate_list->m_logo_texture.get_source() != m_partplate_list->m_logo_texture_filename) {
+				m_partplate_list->m_logo_texture.reset();
 
-		if (m_partplate_list->m_logo_texture.get_id() == 0 || m_partplate_list->m_logo_texture.get_source() != m_partplate_list->m_logo_texture_filename) {
-			m_partplate_list->m_logo_texture.reset();
-
-			if (boost::algorithm::iends_with(m_partplate_list->m_logo_texture_filename, ".svg")) {
-				/*// use higher resolution images if graphic card and opengl version allow
-				GLint max_tex_size = OpenGLManager::get_gl_info().get_max_tex_size();
-				if (temp_texture->get_id() == 0 || temp_texture->get_source() != m_texture_filename) {
-					// generate a temporary lower resolution texture to show while no main texture levels have been compressed
-					if (!temp_texture->load_from_svg_file(m_texture_filename, false, false, false, max_tex_size / 8)) {
-						render_default(bottom, false);
-						return;
+				if (boost::algorithm::iends_with(m_partplate_list->m_logo_texture_filename, ".svg")) {
+					// starts generating the main texture, compression will run asynchronously
+					GLint max_tex_size = OpenGLManager::get_gl_info().get_max_tex_size();
+					GLint logo_tex_size = (max_tex_size < 2048) ? max_tex_size : 2048;
+					if (!m_partplate_list->m_logo_texture.load_from_svg_file(m_partplate_list->m_logo_texture_filename, true, true, true, logo_tex_size)) {
+						BOOST_LOG_TRIVIAL(warning) << __FUNCTION__ << boost::format(": load logo texture from %1% failed!") % m_partplate_list->m_logo_texture_filename;
 					}
-					canvas.request_extra_frame();
-				}*/
-
-				// starts generating the main texture, compression will run asynchronously
-				GLint max_tex_size = OpenGLManager::get_gl_info().get_max_tex_size();
-				GLint logo_tex_size = (max_tex_size < 2048) ? max_tex_size : 2048;
-				if (!m_partplate_list->m_logo_texture.load_from_svg_file(m_partplate_list->m_logo_texture_filename, true, true, true, logo_tex_size)) {
-					BOOST_LOG_TRIVIAL(warning) << __FUNCTION__ << boost::format(": load logo texture from %1% failed!") % m_partplate_list->m_logo_texture_filename;
-					return;
 				}
-			}
-			else if (boost::algorithm::iends_with(m_partplate_list->m_logo_texture_filename, ".png")) {
-				// generate a temporary lower resolution texture to show while no main texture levels have been compressed
-				/* if (temp_texture->get_id() == 0 || temp_texture->get_source() != m_logo_texture_filename) {
-					if (!temp_texture->load_from_file(m_logo_texture_filename, false, GLTexture::None, false)) {
-						render_default(bottom, false);
-						return;
+				else if (boost::algorithm::iends_with(m_partplate_list->m_logo_texture_filename, ".png")) {
+					// starts generating the main texture, compression will run asynchronously
+					if (!m_partplate_list->m_logo_texture.load_from_file(m_partplate_list->m_logo_texture_filename, true, GLTexture::MultiThreaded, true)) {
+						BOOST_LOG_TRIVIAL(warning) << __FUNCTION__ << boost::format(": load logo texture from %1% failed!") % m_partplate_list->m_logo_texture_filename;
 					}
-					canvas.request_extra_frame();
-				}*/
-
-				// starts generating the main texture, compression will run asynchronously
-				if (!m_partplate_list->m_logo_texture.load_from_file(m_partplate_list->m_logo_texture_filename, true, GLTexture::MultiThreaded, true)) {
-					BOOST_LOG_TRIVIAL(warning) << __FUNCTION__ << boost::format(": load logo texture from %1% failed!") % m_partplate_list->m_logo_texture_filename;
-					return;
+				}
+				else {
+					BOOST_LOG_TRIVIAL(warning) << __FUNCTION__ << boost::format(": can not load logo texture from %1%, unsupported format") % m_partplate_list->m_logo_texture_filename;
 				}
 			}
-			else {
-				BOOST_LOG_TRIVIAL(warning) << __FUNCTION__ << boost::format(": can not load logo texture from %1%, unsupported format") % m_partplate_list->m_logo_texture_filename;
-				return;
+			else if (m_partplate_list->m_logo_texture.unsent_compressed_data_available()) {
+				// sends to gpu the already available compressed levels of the main texture
+				m_partplate_list->m_logo_texture.send_compressed_data_to_gpu();
+			}
+
+			if (m_logo_triangles.is_initialized())
+				render_logo_texture(m_partplate_list->m_logo_texture, m_logo_triangles, bottom);
+		}
+	} else {
+		m_partplate_list->load_bedtype_textures();
+		m_partplate_list->load_cali_textures();
+		// btDefault should be skipped
+		auto curr_bed_type = get_bed_type();
+		if (curr_bed_type == btDefault) {
+			DynamicConfig& proj_cfg = wxGetApp().preset_bundle->project_config;
+			if (proj_cfg.has(std::string("curr_bed_type")))
+				curr_bed_type = proj_cfg.opt_enum<BedType>(std::string("curr_bed_type"));
+		}
+		int bed_type_idx = (int)curr_bed_type;
+		auto is_single_extruder_bbl = wxGetApp().preset_bundle->get_printer_extruder_count() == 1;
+		if (!is_single_extruder_bbl) {
+			if (m_partplate_list->m_allow_bed_type_in_double_nozzle.find(bed_type_idx) == m_partplate_list->m_allow_bed_type_in_double_nozzle.end()) {
+				bed_type_idx = 0;
 			}
 		}
-		else if (m_partplate_list->m_logo_texture.unsent_compressed_data_available()) {
-			// sends to gpu the already available compressed levels of the main texture
-			m_partplate_list->m_logo_texture.send_compressed_data_to_gpu();
-
-			// the temporary texture is not needed anymore, reset it
-			//if (temp_texture->get_id() != 0)
-			//    temp_texture->reset();
-
-			//canvas.request_extra_frame();
-		}
-
-		if (m_logo_triangles.is_initialized())
-			render_logo_texture(m_partplate_list->m_logo_texture, m_logo_triangles, bottom);
-		return;
-	}
-
-	m_partplate_list->load_bedtype_textures();
-	m_partplate_list->load_cali_textures();
-    m_partplate_list->load_extruder_only_area_textures();
-	// btDefault should be skipped
-	auto curr_bed_type = get_bed_type();
-	if (curr_bed_type == btDefault) {
-        DynamicConfig& proj_cfg = wxGetApp().preset_bundle->project_config;
-        if (proj_cfg.has(std::string("curr_bed_type")))
-            curr_bed_type = proj_cfg.opt_enum<BedType>(std::string("curr_bed_type"));
-	}
-	int bed_type_idx = (int)curr_bed_type;
-    auto is_single_extruder = wxGetApp().preset_bundle->get_printer_extruder_count() == 1;
-    if (!is_single_extruder) {
-        if (m_partplate_list->m_allow_bed_type_in_double_nozzle.find(bed_type_idx) == m_partplate_list->m_allow_bed_type_in_double_nozzle.end()) {
-            bed_type_idx = 0;
-        }
-    }
-	// render bed textures
-	for (auto &part : m_partplate_list->bed_texture_info[bed_type_idx].parts) {
-		if (part.texture) {
-			if (part.buffer && part.buffer->is_initialized()
-				//&& part.vbo_id != 0
-				) {
-				if (part.offset.x() != m_origin.x() || part.offset.y() != m_origin.y()) {
-					part.offset = Vec2d(m_origin.x(), m_origin.y());
-					part.update_buffer();
-				}
-				render_logo_texture(*(part.texture),
-									*(part.buffer),
-									bottom);
-			}
-		}
-	}
-
-	// render cali texture
-	if (render_cali) {
-		for (auto& part : m_partplate_list->cali_texture_info.parts) {
+		// render bed textures
+		for (auto &part : m_partplate_list->bed_texture_info[bed_type_idx].parts) {
 			if (part.texture) {
-                if (part.buffer && part.buffer->is_initialized()) {
+				if (part.buffer && part.buffer->is_initialized()
+					//&& part.vbo_id != 0
+					) {
 					if (part.offset.x() != m_origin.x() || part.offset.y() != m_origin.y()) {
 						part.offset = Vec2d(m_origin.x(), m_origin.y());
 						part.update_buffer();
 					}
 					render_logo_texture(*(part.texture),
-						*(part.buffer),
-						bottom);
+										*(part.buffer),
+										bottom);
+				}
+			}
+		}
+
+		// render cali texture
+		if (render_cali) {
+			for (auto& part : m_partplate_list->cali_texture_info.parts) {
+				if (part.texture) {
+					if (part.buffer && part.buffer->is_initialized()) {
+						if (part.offset.x() != m_origin.x() || part.offset.y() != m_origin.y()) {
+							part.offset = Vec2d(m_origin.x(), m_origin.y());
+							part.update_buffer();
+						}
+						render_logo_texture(*(part.texture),
+							*(part.buffer),
+							bottom);
+					}
 				}
 			}
 		}
 	}
 
-	//render extruder_only_area_info
-    bool is_zh        = wxGetApp().app_config->get("language") == "zh_CN";
-    int  language_idx = (int) (is_zh ? ExtruderOnlyAreaType::Chinese:ExtruderOnlyAreaType::Engilish);
-    if (!is_single_extruder) {
-        for (auto &part : m_partplate_list->extruder_only_area_info[language_idx].parts) {
-            if (part.texture) {
-                if (part.buffer && part.buffer->is_initialized()) {
-                    if (part.offset.x() != m_origin.x() || part.offset.y() != m_origin.y()) {
-                        part.offset = Vec2d(m_origin.x(), m_origin.y());
-                        part.update_buffer();
-                    }
-                    render_logo_texture(*(part.texture), *(part.buffer), bottom);
-                }
-            }
-        }
+	//render extruder_only_area_info for all printers (not just BBL)
+	m_partplate_list->load_extruder_only_area_textures();
+	auto is_single_extruder = wxGetApp().preset_bundle->get_printer_extruder_count() == 1;
+	bool is_zh        = wxGetApp().app_config->get("language") == "zh_CN";
+	int  language_idx = (int) (is_zh ? ExtruderOnlyAreaType::Chinese:ExtruderOnlyAreaType::Engilish);
+	if (!is_single_extruder) {
+		for (auto &part : m_partplate_list->extruder_only_area_info[language_idx].parts) {
+			if (part.texture) {
+				if (part.buffer && part.buffer->is_initialized()) {
+					if (part.offset.x() != m_origin.x() || part.offset.y() != m_origin.y()) {
+						part.offset = Vec2d(m_origin.x(), m_origin.y());
+						part.update_buffer();
+					}
+					render_logo_texture(*(part.texture), *(part.buffer), bottom);
+				}
+			}
+		}
 	}
 }
 
