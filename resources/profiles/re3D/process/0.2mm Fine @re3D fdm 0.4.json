@@ -6,9 +6,9 @@
   "inherits": "fdm_process_re3D_common",
   "instantiation": "true",
   "compatible_printers": [
-    "re3D Gigabot 4 0.4 nozzle",
-    "re3D Gigabot 4 XLT 0.4 nozzle",
-    "re3D Terabot 4 0.4 nozzle"
+	"re3D Gigabot 4 0.4 nozzle",
+	"re3D Gigabot 4 XLT 0.4 nozzle",
+	"re3D Terabot 4 0.4 nozzle"
   ],
   "layer_height": "0.2",
   "initial_layer_print_height": "0.4",
